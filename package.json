@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^3.0.0-beta.10"
+  },
+  "dependencies": {
+    "vue": "^2.5.17"
   }
 }
