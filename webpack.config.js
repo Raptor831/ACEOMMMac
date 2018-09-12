@@ -2,9 +2,9 @@ module.exports = {
 
     watch: true,
 
-    target: 'electron',
+    target: 'electron-main',
 
-    entry: './app/src/entry.js',
+    entry: './main.js',
 
     output: {
         path: __dirname + '/app/build',
@@ -13,7 +13,7 @@ module.exports = {
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
