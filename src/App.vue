@@ -1,14 +1,14 @@
-<template>
-  <h2>Hello from {{text}}</h2>
-</template>
-
 <script>
+import xml2js from 'xml2js'
+import fs from 'fs';
+
 export default {
   name: 'app',
   data () {
     return {
        message: '',
-       text: ''
+       text: '',
+       data: '',
     }
   },
   created () {
@@ -16,10 +16,13 @@ export default {
   },
   methods: {
     refreshMessage() {
-      this.$http.get('./message.json').then( response => {
-        this.text = response.data.fizz;
-        this.message = response.data;
-        //console.log(this.message);
+      let parseString = xml2js.parseString
+      fs.readFile(__dirname + '/../data/Datastore.xml', (err, data) => {
+        xml2js.parseString(data, (err, result) => {
+          this.data = result;
+          this.text = result.Data.Businesses[0].Airlines[0].Airline[0]['$'].Name
+          console.log('Done');
+        });
       });
     }
   }

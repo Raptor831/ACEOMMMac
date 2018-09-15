@@ -38,5 +38,8 @@
         "sourceMaps": "none"
       }
     }
+  },
+  "application/xml": {
+    "passthrough": true
   }
 }
