@@ -51,11 +51,6 @@ module.exports = (env, argv) => {
               sourceMap: isDev
             }
           }, {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: isDev
-            }
-          }, {
             loader: "sass-loader",
             options: {
               includePaths: [path.resolve(__dirname, "./node_modules/foundation-sites/scss")],
