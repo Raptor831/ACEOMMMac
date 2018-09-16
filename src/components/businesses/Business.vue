@@ -1,9 +1,9 @@
 <template>
-  <tr>
-    <td>{{ business['$'].Name }}</td>
-    <td>{{ business['$'].Author }}</td>
-    <td>{{ business['$'].Country }}</td>
-    <td>{{ business['$'].Region }}</td>
+  <tr class="">
+    <td>{{ business.Name }}</td>
+    <td>{{ business.Author }}</td>
+    <td>{{ business.Country }}</td>
+    <td>{{ business.Region }}</td>
   </tr>
 </template>
 
@@ -15,6 +15,6 @@ export default {
        buisiness: []
     }
   },
-  props: ['business']
+  props: ['business', 'type']
 }
 </script>

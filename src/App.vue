@@ -1,12 +1,22 @@
 <template>
   <div id="main">
-    {{ text }}
-    <businesses v-bind:businesses="airlines"></businesses>
+    <div class="filters">
+      <select v-model="regionFilter">
+        <option>All</option>
+        <option>Africa</option>
+        <option>Asia</option>
+        <option>Europe</option>
+        <option>North America</option>
+        <option>South America</option>
+        <option>Oceania</option>
+      </select>
+    </div>
+    <businesses v-bind:regionFilter="regionFilter" v-bind:businesses="airlines"></businesses>
   </div>
 </template>
 
 <script>
-import xml2js from 'xml2js'
+import xml2json from 'xml2json'
 import fs from 'fs';
 import businesses from './components/Businesses'
 
@@ -14,29 +24,27 @@ export default {
   name: 'app',
   data () {
     return {
-       message: '',
-       text: '',
-       data: '',
-       airlines: []
+      data: '',
+      businesses: '',
+      airlines: '',
+      regionFilter: 'Africa'
     }
   },
+  
   created () {
-    this.refreshMessage()
+    this.refreshData()
   },
   methods: {
-    refreshMessage() {
-      let parseString = xml2js.parseString
+    refreshData() {
+      let parser = xml2json
       fs.readFile(__dirname + '/../data/Datastore.xml', (err, data) => {
-        xml2js.parseString(data, (err, result) => {
-          this.data = result.Data;
-          this.airlines = result.Data.Businesses[0].Airlines[0].Airline
-          console.log(this.airlines)
-          //this.text = result.Data.Businesses[0].Airlines[0].Airline[0]['$'].Name
-          console.dir(result.Data)
-          console.log('Done');
-        });
+        let result = parser.toJson(data, {object: true})
+        this.data = result.Data
+        this.businesses = result.Data.Businesses
+        this.airlines = this.data.Businesses.Airlines.Airline
+        console.log(this.data);
       });
-    }
+    },
   },
   components: {
     businesses
@@ -44,4 +52,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>h2 { color: deeppink; }</style>
+<style lang="scss" scoped>#main { color: deeppink; }</style>
