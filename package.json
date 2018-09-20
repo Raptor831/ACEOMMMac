@@ -3,7 +3,7 @@
   "productName": "aceomm",
   "version": "1.0.0",
   "description": "My Electron application description",
-  "main": "./src/index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -43,7 +43,20 @@
       "windowsStoreConfig": {
         "packageName": "",
         "name": "aceomm"
-      }
+      },
+      "plugins": [
+        ["@electron-forge/plugin-webpack", {
+          "mainConfig": "./webpack.main.config.js",
+          "renderer": {
+            "config": "./webpack.renderer.config.js",
+            "entryPoints": [{
+              "html": "./src/renderer/index.html",
+              "js": "./src/renderer/index.js",
+              "name": "main_window"
+            }]
+          }
+        }]
+      ]
     }
   },
   "dependencies": {
@@ -58,6 +71,7 @@
     "xml2json": "^0.11.2"
   },
   "devDependencies": {
+    "@electron-forge/plugin-webpack": "^6.0.0-beta.22",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
